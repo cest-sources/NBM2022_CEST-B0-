@@ -67,15 +67,15 @@ Pref.CESTPool(1).f=0;  Pref.CESTPool(2).f=0;  Pref.CESTPool(3).f=0; Pref.CESTPoo
 [Zref ,Rex_ref]=Z_cw_yaml(P,Pref);
     
 figure(1), 
-set(gcf,'Position',[587   262   560   720]);
-t = annotation('textbox','String','a)','Position',[0 0.85 0.1 0.1]);
+set(gcf,'Position',[587   162   560   620]);
+t = annotation('textbox','String','a)','Position',[0.01 0.85 0.1 0.1]);
 t.FontSize = 14; t.LineStyle='None';
-t = annotation('textbox','String','b)','Position',[0 0.63 0.1 0.1]);
+t = annotation('textbox','String','b)','Position',[0.01 0.55 0.1 0.1]);
 t.FontSize = 14; t.LineStyle='None';
-t = annotation('textbox','String','c)','Position',[0 0.42 0.1 0.1]);
+t = annotation('textbox','String','c)','Position',[0.01 0.25 0.1 0.1]);
 t.FontSize = 14; t.LineStyle='None';
 set(groot,'defaultLineLineWidth',1.2)
-    subplot(4,1,1), 
+    subplot(3,1,1), 
 yyaxis left
 % plot(P.xZspec,P.xZspec*0+R1obs,':', 'Displayname','R_{1,obs}') ;   hold on;
 plot(P.xZspec,Rpw+Rpmt,'--',P.xZspec,Rpw+Rpmt+Rex,'-k') ;   hold on;
@@ -86,16 +86,17 @@ set(gca,'XDir','reverse'); ylabel('R_{ex}(\Delta\omega) [s^{-1}]'); set(gca,'yLi
 col_rex=get(h_rex,'Color');
 hold on; legend({'R_{1\rho,wmt}','R_{1\rho}=R_{1\rho,wmt}+R_{ex}', 'R_{ex}'},'FontSize',8)
 
-subplot(4,1,2),
+subplot(3,1,2),
 plot(P.xZspec,Z,'-k',P.xZspec,Zref,'--') ;   hold on;
 set(gca,'XDir','reverse'); ylabel('Z(\Delta\omega)'); set(gca,'yLim',[0 1]);
 legend({'Z','Z_{ref}'},'FontSize',8)
-subplot(4,1,3),
+subplot(3,1,3),
 plot(P.xZspec,Zref-Z,'-','Color',col_rex) ; hold on;
 set(gca,'XDir','reverse'); xlabel('\Delta\omega [ppm]'); ylabel('MTR_{LD}(\Delta\omega)'); set(gca,'yLim',[0 0.15]);
 legend({'MTR_{LD}=Z_{ref}-Z'},'FontSize',8)
 
 figure,
+set(gcf,'Position',[587   200   700   400]);
 subplot(2,1,1), % vary B1 parameter
 vary=[0.25  0.75 2 4 ]; % define value range for variation
 
@@ -137,7 +138,7 @@ alpha = w1.^2./(w1.^2+Psim.CESTPool(1).k*(Psim.CESTPool(1).k+Psim.CESTPool(1).R2
 plot(B1,alpha); hold on;
 plot(B1,Dilution); hold on;
 plot(B1,alpha.*Dilution); hold on;
-% plot(B1,MTRb1/(Psim.CESTPool(1).k*Psim.CESTPool(1).f)*R1obs); hold on;
+% plot(B1,MTRb1/(Psim.CESTPool(1).k*Psim.CESTPool(1).f)*R1obs); hold on; % simulated alpha*sigma, but only valid for single CEST pool simulation
 legend({'\alpha','\sigma^\prime','\alpha\cdot\sigma^\prime','MTR\cdotR_{1}/k_sf_s'},'FontSize',7)
 
 % Zrefsp = Rex* R1obs/(R1pwmt^2)          % with spillover
@@ -262,3 +263,5 @@ plot(B1,alpha.*Dilution); hold on;
 title('rNOE at -2.75 ppm');
 xlabel('RF amplitude B_1 [µT]');
 % ylabel('labeling efficiency');
+
+set(findall(gcf,'-property','FontSize'),'FontSize',9)
